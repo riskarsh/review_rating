@@ -1,0 +1,50 @@
+body {
+    background-image: linear-gradient(rgb(206, 53, 237), rgb(76, 21, 154));
+    background-repeat: no-repeat;
+    height: 800px;
+  }
+
+  .welcome{
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* padding: 30px; */
+    margin-top: 70px;
+    margin-left: 200px;
+    /* display: flex;
+    flex-direction: column; */
+
+  }
+
+  .leftimage{
+    margin-top: 70px;
+    margin-left: 100px;
+    display: inline-block;
+
+  }
+
+  .form{
+    display: flex;
+    background-color: white;
+    height: 500px;
+    width: 400px;
+    margin-right: 100px;
+    border-radius: 10px;
+
+
+  }
+  .signup{
+    text-align: center;
+    color: purple;
+    margin-top: 25px;
+  }
+  .signup-details{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: smaller;
+  }
+  .signupbutton{
+    background: linear-gradient((rgb(206, 53, 237), rgb(76, 21, 154)));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
