@@ -1,50 +1,115 @@
-body {
-    background-image: linear-gradient(rgb(206, 53, 237), rgb(76, 21, 154));
-    background-repeat: no-repeat;
-    height: 800px;
-  }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  .welcome{
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* padding: 30px; */
-    margin-top: 70px;
-    margin-left: 200px;
-    /* display: flex;
-    flex-direction: column; */
+}
+.signup-main {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg,#c49ee9, #27187d);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.signup-left {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.signup-left h1 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.signup-left p {
+  color: #fff;
+  text-align: center;
+  width: 52%;
+}
+.signup-main .signup-left img {
+  width: 80%;
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.35));
+}
+.signup-right {
+  margin-right: 4rem;
+  width: 30%;
+  height: 90vh;
+  background-color: rgba(255, 255, 255, 0.909);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  z-index: 100000;
+  box-shadow: 0px 4px 20px 10px rgb(0, 0, 0, 0.465);
+}
 
-  }
+.signup-right .form-image {
+  display: flex;
+  justify-content: space-between;
 
-  .leftimage{
-    margin-top: 70px;
-    margin-left: 100px;
-    display: inline-block;
+}.signup-right .form-image .left-image{
+    width: 9rem;
+    height: 9rem;
+    margin: -17px;
+}
+.signup-right .form-image .left-image img{
+    width: 100%;
+    height: 100%;
+}
+.signup-right .form-image .right-image{
+    padding: 23px;
+}
+.signup-right .form-image .right-image img{
+    width: 2.5rem;
+    height: 2.5rem;
+}
 
-  }
+.signup-right .signup-heading {
+  height: 15vh;
+  text-align: center;
+  margin-top: -68px;
+}
+.signup-right .signup-heading h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #720e9e;
+}
+.signup-right .signup-heading p {
+  font-size: 0.7rem;
+  color: #720e9e;
+  width: 80%;
+  margin: auto;
+}
+.signup-right .form-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 55vh;
 
-  .form{
-    display: flex;
-    background-color: white;
-    height: 500px;
-    width: 400px;
-    margin-right: 100px;
-    border-radius: 10px;
+}
 
+.signup-right .form-area .signupbutton {
+  padding: 7px 25px;
+  margin:10px auto;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(328deg, #3820cf, #be05ef);
+  color: white;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.signup-main .signup-last {
+  text-align: center;
+  margin: 40px 0;
 
-  }
-  .signup{
-    text-align: center;
-    color: purple;
-    margin-top: 25px;
-  }
-  .signup-details{
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: smaller;
-  }
-  .signupbutton{
-    background: linear-gradient((rgb(206, 53, 237), rgb(76, 21, 154)));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+}
+hr {
+  width: 70%;
+  margin: auto;
+}
