@@ -31,6 +31,29 @@ export const signUpUser = createAsyncThunk(
     }
   }
 );
+// Create an asynchronous action for user Signin
+export const signInUser = createAsyncThunk(
+    "user/signInUser",
+    async(body,thunkAPI) => {
+        console.log("body data :",body)
+        const resResult = await fetch("http://localhost:9000/user/userLogin", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                "Content-Type" :"application/json",
+            },
+            body: JSON.stringify(body),
+        });
+    let data = await resResult.json()
+    console.log("data :",data)
+    if (data.success){
+        return data
+    }
+    else {
+        return thunkAPI.rejectWithValue(data)
+    }
+    }
+);
 // Create a Redux slice for user authentication and registration
 const authSlice = createSlice({
   name: "user",
@@ -85,6 +108,33 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload.error;
       state.message = "";
+    },
+    // Handle pending Signin
+    [signInUser.pending]:(state, {payload}) => {
+        state.loading =true
+    },
+    // Handle successful Signin
+    [signInUser.fulfilled]:(state,{payload}) => {
+        state.loading = false
+
+        if(payload.error) {
+            state.error = payload.error
+        }
+        else{
+            state.message = payload.message;
+            state.token = payload.token;
+            state.user = payload.userData;
+            localStorage.setItem("message", payload.message);
+            localStorage.setItem("user", JSON.stringify(payload.userData));
+            localStorage.setItem("token", payload.token);
+
+        }
+    },
+    // Handle failed Signin
+    [signInUser.rejected]:(state, {payload}) => {
+        state.loading = true;
+        state.error = payload.error;
+        state.message = "";
     },
   },
 });
