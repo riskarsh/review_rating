@@ -28,7 +28,7 @@ const Login = () => {
         position: toast.POSITION.TOP_CENTER,
       });
       dispatch(clearState());
-      navigate("/");
+      navigate("/companylist");
     }
   }, [error, message]);
 
