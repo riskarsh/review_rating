@@ -29,6 +29,29 @@ export const createCompany = createAsyncThunk(
     }
   }
 );
+
+// Create an asynchronous action for getting company
+export const getCompanies = createAsyncThunk(
+  "company/getCompanies",
+  async (thunkAPI) => {
+    // Get company data from server using fetch
+    const resResult = await fetch("http://localhost:9000/company/list",
+    {
+      method: "get",
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}` },
+
+    });
+    // Handle server response
+    let data = await resResult.json();
+    if (data.success) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+
 // Create a Redux slice for user authentication and registration
 const companySlice = createSlice({
   name: "company",
@@ -71,8 +94,31 @@ const companySlice = createSlice({
       state.error = payload.error;
       state.cmpcreate_message = "";
     },
+    // Handle pending retrival of company
+    [getCompanies.pending]: (state, { payload }) => {
+      state.loading = true;
+    },
+    // Handle successful company retrieval
+    [getCompanies.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      if (payload.error) {
+        state.error = payload.error;
+        state.cmplist_message = "";
+        state.company_data = "";
+      } else {
+        state.cmplist_message = payload.message;
+        state.company_data= payload.companies;
+        state.error = "";
+      }
+    },
+    // Handle failed company retrieval
+    [getCompanies.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload.error;
+      state.cmplist_message = "";
+      state.company_data= "";
   },
-});
+}});
 
 export default companySlice.reducer;
 export const { clearCompanyState } = companySlice.actions;
