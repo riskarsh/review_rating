@@ -69,7 +69,6 @@ export const getCompanyDetails = createAsyncThunk(
     );
     // Handle server response
     let data = await resResult.json();
-    console.log("data: ",data)
     if (data.success) {
       return data;
     } else {
@@ -159,7 +158,7 @@ const companySlice = createSlice({
         state.company_details = "";
       } else {
         state.cmpDetail_message = payload.message;
-        console.log("xd",payload.compDetails )
+        // console.log("Comp-details",payload.compDetails )
         state.company_details = payload.compDetails;
         state.error = "";
       }
