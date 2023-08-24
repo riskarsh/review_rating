@@ -35,15 +35,41 @@ export const getCompanies = createAsyncThunk(
   "company/getCompanies",
   async (thunkAPI) => {
     // Get company data from server using fetch
-    const resResult = await fetch("http://localhost:9000/company/list",
-    {
+    const resResult = await fetch("http://localhost:9000/company/list", {
       method: "get",
-      headers: { 
-        Authorization: `Bearer ${localStorage.getItem("token")}` },
-
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     // Handle server response
     let data = await resResult.json();
+    if (data.success) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+
+// Create an asynchronous action for getting company details
+export const getCompanyDetails = createAsyncThunk(
+  "company/getCompanyDetails",
+  async (id, thunkAPI) => {
+    // console.log("id", id);
+    // Get company details from server using fetch
+    const resResult = await fetch(
+      `http://localhost:9000/company/details/${id}`,
+      {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    // Handle server response
+    let data = await resResult.json();
+    console.log("data: ",data)
     if (data.success) {
       return data;
     } else {
@@ -107,7 +133,7 @@ const companySlice = createSlice({
         state.company_data = "";
       } else {
         state.cmplist_message = payload.message;
-        state.company_data= payload.companies;
+        state.company_data = payload.companies;
         state.error = "";
       }
     },
@@ -116,9 +142,37 @@ const companySlice = createSlice({
       state.loading = false;
       state.error = payload.error;
       state.cmplist_message = "";
-      state.company_data= "";
+      state.company_data = "";
+    },
+    // Handle pending retrival of company details
+    [getCompanyDetails.pending]: (state, { payload }) => {
+      state.loading = true;
+      state.error="";
+      state.cmpDetail_message="";
+      state.company_details="";
+    },
+    // Handle successful retrieval of company details
+    [getCompanyDetails.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      if (payload.error) {
+        state.error = payload.error;
+        state.company_details = "";
+      } else {
+        state.cmpDetail_message = payload.message;
+        console.log("xd",payload.compDetails )
+        state.company_details = payload.compDetails;
+        state.error = "";
+      }
+    },
+    // Handle failed companydetails retrieval
+    [getCompanyDetails.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload.error;
+      state.cmpDetail_message = "";
+      state.company_details = "";
+    },
   },
-}});
+});
 
 export default companySlice.reducer;
 export const { clearCompanyState } = companySlice.actions;
