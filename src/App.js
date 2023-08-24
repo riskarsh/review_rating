@@ -7,6 +7,8 @@ import Login from './app/component/auth/UserLogin';
 import {BrowserRouter, Routes, Route,} from 'react-router-dom'
 import Companylist from './app/component/company/CompanyList';
 import CreateCompany from './app/component/company/CreateCompany';
+import CompanyDetails from './app/component/company/CompanyDetails';
+import CompanyReview from './app/component/review/CompanyReview'
 
 
 
@@ -22,6 +24,9 @@ function App() {
           <Route path ='/companylist' element = {<Companylist/> }/>
           
           <Route path ='/createcompany' element = {<CreateCompany/> }/>
+          <Route path ='/companydetails/:id' element = {<CompanyDetails/> }/>
+          <Route path ='/companyreviews/:id' element = {<CompanyReview/> }/>
+
         
         </Routes>
       </BrowserRouter>
