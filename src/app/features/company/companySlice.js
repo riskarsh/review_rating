@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { ADDCOMPANY_API,GETCOMPANY_API,GETCOMPANYDETAILS_API } from "../../../server";
 
 // Initial state for the Redux slice
 let initialState = {
@@ -17,12 +18,11 @@ export const createCompany = createAsyncThunk(
   "company/create",
   async (body, thunkAPI) => {
     // Send company data to the server using Axios
-    const res = await axios.post("http://localhost:9000/company/create", body, {
+    const res = await axios.post(`${ADDCOMPANY_API}`, body, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     // Handle server response
     if (res.data.success) {
-      //   console.log("Signup think res", res.data);
       return res.data;
     } else {
       return thunkAPI.rejectWithValue(res.data);
@@ -35,7 +35,7 @@ export const getCompanies = createAsyncThunk(
   "company/getCompanies",
   async (thunkAPI) => {
     // Get company data from server using fetch
-    const resResult = await fetch("http://localhost:9000/company/list", {
+    const resResult = await fetch(`${GETCOMPANY_API}`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,10 +55,9 @@ export const getCompanies = createAsyncThunk(
 export const getCompanyDetails = createAsyncThunk(
   "company/getCompanyDetails",
   async (id, thunkAPI) => {
-    // console.log("id", id);
     // Get company details from server using fetch
     const resResult = await fetch(
-      `http://localhost:9000/company/details/${id}`,
+      `${GETCOMPANYDETAILS_API}${id}`,
       {
         method: "get",
         headers: {

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-// import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import "react-toastify/dist/ReactToastify.css";
 import {
   clearCompanyState,
   createCompany,
-} from "../../features/company/companySlice"; //action
+} from "../../features/company/companySlice";
 
-//Inittial schema of formik
 const CreateCompany = () => {
   // State and Redux-related setup
   const [company_logo, setCompanylogo] = useState("");
@@ -43,7 +41,6 @@ const CreateCompany = () => {
     location: "",
     city: "",
     founded: "",
-    userId: "",
   };
   //Set Company picure
   const addCompanypic = (e) => {
@@ -54,22 +51,20 @@ const CreateCompany = () => {
   const validationSchema = yup.object().shape({
     companyName: yup.string().required("Enter companyName"),
     location: yup.string().required("Enter location"),
-    city: yup.string().required("Enter your password"),
-    founded: yup.string().required("Enter your mobile"),
-    userId: yup.string().required("Enter your USERID"),
+    city: yup.string().required("Enter the city"),
+    founded: yup.string().required("Enter the year"),
   });
 
   // Handle form submission
   const handleSubmit = (values) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const cmp_obj = { ...values, userId: user._id, company_logo: company_logo };
-    console.log("before dispatch :", cmp_obj);
     dispatch(createCompany(cmp_obj));
   };
 
   return (
     <div>
-    <ToastContainer />
+      <ToastContainer />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -79,11 +74,7 @@ const CreateCompany = () => {
           <div className="col-md-10 mt-4">
             {" "}
             Company Name
-            <Field
-              type="text"
-              name="companyName"
-              className="form-control"
-            />
+            <Field type="text" name="companyName" className="form-control" />
             <p className="text-danger">
               <ErrorMessage name="companyName" />
             </p>
@@ -91,11 +82,7 @@ const CreateCompany = () => {
 
           <div className="col-md-10 mt-4">
             Location
-            <Field
-              type="text"
-              name="location"
-              className="form-control"
-            />
+            <Field type="text" name="location" className="form-control" />
             <p className="text-danger">
               <ErrorMessage name="location" />
             </p>
@@ -112,40 +99,27 @@ const CreateCompany = () => {
 
           <div className="col-md-10 mt-4">
             Founded
-            <Field
-              type="text"
-              name="founded"
-              className="form-control"
-            />
+            <Field type="text" name="founded" className="form-control" />
             <p className="text-danger">
               <ErrorMessage name="founded" />
             </p>
           </div>
-
           <div className="col-md-10 mt-4">
-            User ID
-            <Field
-              type="text"
-              name="userId"
-              className="form-control"
+            <input
+              type="file"
+              name="company_logo"
+              className="form-control-file"
+              onChange={addCompanypic}
             />
-            <p className="text-danger">
-              <ErrorMessage name="userId" />
-            </p>
           </div>
-          <div className="col-md-10 mt-4">
-                  <input
-                    type="file"
-                    name="company_logo"
-                    className="form-control-file"
-                    onChange={addCompanypic}
-                  />
-                </div>
 
-          <button type="submit">Add</button>
+          <button type="submit" className="company-btn">
+            Add
+          </button>
         </Form>
       </Formik>
     </div>
   );
 };
+
 export default CreateCompany;

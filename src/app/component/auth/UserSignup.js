@@ -19,7 +19,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const data = useSelector((state) => state.user);
   const { message, error, loading } = data;
-  console.log("Response", message, error);
 
   // Display error or success messages using toast
   useEffect(() => {
@@ -65,7 +64,6 @@ const Signup = () => {
   // Handle form submission
   const handleSubmit = (values) => {
     let userObj = { ...values, profilepic: profilePic };
-    console.log("User object", userObj);
     dispatch(signUpUser(userObj));
   };
 
@@ -184,7 +182,10 @@ const Signup = () => {
               <hr></hr>
               <p>
                 I already have an account?
-                <Link to={"/login"}> Login </Link>{" "}
+                <Link to={"/login"}>
+                  {" "}
+                  <strong>Login</strong>{" "}
+                </Link>{" "}
               </p>
             </div>
           </div>
@@ -193,4 +194,5 @@ const Signup = () => {
     </>
   );
 };
+
 export default Signup;

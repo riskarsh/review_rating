@@ -8,6 +8,8 @@ const Navbar = () => {
     localStorage.clear()
     navigate("/login")
   }
+  // Check if the user is logged in
+  const user = JSON.parse(localStorage.getItem("user"));
  
   return (
     <>
@@ -20,7 +22,10 @@ const Navbar = () => {
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
             <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
-          <button type='button' class="btn btn-link" onClick={handleLogout}>Logout</button>
+          {user && user.profilepic && (
+            <img src={`http://localhost:9000${user.profilepic}`} alt="User Profile" width="40" height="40" className="user-profile-pic" />
+          )}
+          <button type='button' class="btn btn-outline-dark" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
     </>

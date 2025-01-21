@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { ADDREVIEW_API } from "../../../server";
 
 // Initial state for the Redux slice
 let initialState = {
@@ -8,16 +9,17 @@ let initialState = {
     error: "",
   };
 
-// Create an asynchronous action for adding review
+// Asynchronous action for adding review
 export const companyReview = createAsyncThunk(
     "review/companyReview",
     async (body, thunkAPI) => {
       // Send company review to the server using Axios
-      const res = await axios.post("http://localhost:9000/company/addreview", 
+      const res = await axios.post(`${ADDREVIEW_API}`, 
       body, {
         headers: { 
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       return res.data;
